@@ -7,8 +7,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "tsc -w",
-    "dev": "nodemon build/index.js"
+
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",
