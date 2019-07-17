@@ -19,8 +19,7 @@ var MailRoutes = /** @class */ (function () {
                     send_mail_1.default.mailSmtpConfig().sendMail(send_mail_1.default.mailSendConfig(req.body), function (error, response) {
                         if (error) {
                             console.log('ssssssssssssssssssssss', JSON.stringify(error));
-                            var gg = JSON.stringify({ status: "sss" });
-                            res.status(500).send(gg);
+                            res.status(500).send({ status: "error" });
                         }
                         else {
                             console.log("Message sent: " + response.accepted);
