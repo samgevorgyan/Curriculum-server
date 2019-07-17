@@ -24,8 +24,8 @@ class MailRoutes {
                     mailConfig.mailSmtpConfig().sendMail(mailConfig.mailSendConfig(req.body), function (error: any, response: any) {
                         if (error) {
                             console.log('ssssssssssssssssssssss', JSON.stringify(error));
-                            let gg = JSON.stringify({status:"sss"})
-                            res.status(500).send(gg)
+
+                            res.status(500).send({status : "error"})
                         } else {
                             console.log("Message sent: " + response.accepted);
                             console.log('ssssssssssssssssssssss', JSON.stringify(response));
