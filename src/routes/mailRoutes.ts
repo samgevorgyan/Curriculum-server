@@ -19,19 +19,21 @@ class MailRoutes {
             if (req.body) {
                 if (req.body.name && req.body.email && req.body.msg) {
 
-
-
-                    mailConfig.mailSmtpConfig().sendMail(mailConfig.mailSendConfig(req.body), function (error: any, response: any) {
-                        if (error) {
-                            console.log('ssssssssssssssssssssss', JSON.stringify(error));
-
-                            res.status(500).send({status : "error"})
-                        } else {
-                            console.log("Message sent: " + response.accepted);
-                            console.log('ssssssssssssssssssssss', JSON.stringify(response));
+                    mailConfig.mailSmtpConfig().sendMail(mailConfig.mailSendConfig(req.body)).then((result)=>{
+                        console.log('result', result);
                             res.status(200).send({status:'OK'},)
+                    },
+                        (error)=>{
+                        console.log('send error', error );
+                        if(error.responseCode && error.responseCode === 535){
+                            res.status(500).send({status : "error Authrntication"})
+                        } else if(error.errno && error.errno === 'ETIMEDOUT'){
+                            res.status(500).send({status : "error invalid port or ip address timeout"})
                         }
-                    })
+                        else {
+                            res.status(500).send({status: "error"})
+                        }
+                    });
                 }
              else {
                 res.send('kisat prat zapros',)

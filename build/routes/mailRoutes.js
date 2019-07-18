@@ -16,15 +16,19 @@ var MailRoutes = /** @class */ (function () {
             console.log('mtrav mail-i hamar', req.body.name);
             if (req.body) {
                 if (req.body.name && req.body.email && req.body.msg) {
-                    send_mail_1.default.mailSmtpConfig().sendMail(send_mail_1.default.mailSendConfig(req.body), function (error, response) {
-                        if (error) {
-                            console.log('ssssssssssssssssssssss', JSON.stringify(error));
-                            res.status(500).send({ status: "error" });
+                    send_mail_1.default.mailSmtpConfig().sendMail(send_mail_1.default.mailSendConfig(req.body)).then(function (result) {
+                        console.log('result', result);
+                        res.status(200).send({ status: 'OK' });
+                    }, function (error) {
+                        console.log('send error', error);
+                        if (error.responseCode && error.responseCode === 535) {
+                            res.status(500).send({ status: "error Authrntication" });
+                        }
+                        else if (error.errno && error.errno === 'ETIMEDOUT') {
+                            res.status(500).send({ status: "error invalid port or ip address timeout" });
                         }
                         else {
-                            console.log("Message sent: " + response.accepted);
-                            console.log('ssssssssssssssssssssss', JSON.stringify(response));
-                            res.status(200).send({ status: 'OK' });
+                            res.status(500).send({ status: "error" });
                         }
                     });
                 }

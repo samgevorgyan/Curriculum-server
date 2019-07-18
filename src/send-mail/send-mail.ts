@@ -10,12 +10,10 @@ class SendMail {
 mailSendConfig(obj: any){
 
 return {
-    from: "gago",
-    to: 'samvelgevorgyan87@gmail.com',
-    subject:  "NICE JOB OFFER ",
-
-    html: ` 
-<div  >
+    from: 'gesamvel@mail.ru',
+    to: 'gesamvel@mail.ru',
+    subject: "NICE JOB OFFER ",
+    html: `<div  >
 <h1>Hello Dear Samvel</h1>
 <div>YOU HAVE GREAT EMAIL </div>
 <ul style="list-style: none">
@@ -25,25 +23,24 @@ return {
 ${obj.msg}
 </li>
 </ul>
- </div>
-  
-`
+ </div> `,
+
 }
 
 }
     mailSmtpConfig(){
 
    return nodeMailer.createTransport({
-       service: "gmail",
-       host: "smtp.gmail.com",
+
+       host: "smtp.mail.ru",
+
        port: 587,
        auth: {
-           user: "samvelgevorgyan87@gmail.com",
-           pass: "asatur77909"
+           user: 'gesamvel@mail.ru',
+           pass: 'etWrnyUMAg77eKj'
        },
-       tls:{
-           rejectUnauthorized:false,
-       }
+
+
     });
 }
 

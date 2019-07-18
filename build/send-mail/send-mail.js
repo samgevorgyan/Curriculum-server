@@ -10,24 +10,20 @@ var SendMail = /** @class */ (function () {
     }
     SendMail.prototype.mailSendConfig = function (obj) {
         return {
-            from: "gago",
-            to: 'samvelgevorgyan87@gmail.com',
+            from: 'gesamvel@mail.ru',
+            to: 'gesamvel@mail.ru',
             subject: "NICE JOB OFFER ",
-            html: " \n<div  >\n<h1>Hello Dear Samvel</h1>\n<div>YOU HAVE GREAT EMAIL </div>\n<ul style=\"list-style: none\">\n<li>Sender name - " + obj.name + "</li>\n<li>Sender email -  " + obj.email + " </li>\n<li style=\"font-size: 25px; color: #2b1df2\"> Message -\n" + obj.msg + "\n</li>\n</ul>\n </div>\n  \n"
+            html: "<div  >\n<h1>Hello Dear Samvel</h1>\n<div>YOU HAVE GREAT EMAIL </div>\n<ul style=\"list-style: none\">\n<li>Sender name - " + obj.name + "</li>\n<li>Sender email -  " + obj.email + " </li>\n<li style=\"font-size: 25px; color: #2b1df2\"> Message -\n" + obj.msg + "\n</li>\n</ul>\n </div> ",
         };
     };
     SendMail.prototype.mailSmtpConfig = function () {
         return nodemailer_1.default.createTransport({
-            service: "gmail",
-            host: "smtp.gmail.com",
+            host: "smtp.mail.ru",
             port: 587,
             auth: {
-                user: "samvelgevorgyan87@gmail.com",
-                pass: "asatur77909"
+                user: 'gesamvel@mail.ru',
+                pass: 'etWrnyUMAg77eKj'
             },
-            tls: {
-                rejectUnauthorized: false,
-            }
         });
     };
     return SendMail;
