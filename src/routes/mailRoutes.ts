@@ -1,47 +1,52 @@
 import {Router} from 'express'
 import mailConfig from '../send-mail/send-mail'
-
+import * as EmailValidator from 'email-validator'
 
 class MailRoutes {
     public router: Router = Router();
 
 
     constructor() {
-        this.config();
+        this.sendEmail();
     }
 
-    config(): void {
+    sendEmail(): void {
         console.log('mtav games',);
         this.router.post('/', (req, res) => {
-
-            console.log('mtrav mail-i hamar', req.body.name);
 
             if (req.body) {
                 if (req.body.name && req.body.email && req.body.msg) {
 
-                    mailConfig.mailSmtpConfig().sendMail(mailConfig.mailSendConfig(req.body)).then((result)=>{
-                        console.log('result', result);
-                            res.status(200).send({status:'OK'},)
-                    },
-                        (error)=>{
-                        console.log('send error', error );
-                        if(error.responseCode && error.responseCode === 535){
-                            res.status(500).send({status : "error Authrntication"})
-                        } else if(error.errno && error.errno === 'ETIMEDOUT'){
-                            res.status(500).send({status : "error invalid port or ip address timeout"})
-                        }
-                        else {
-                            res.status(500).send({status: "error"})
-                        }
-                    });
+                    // emailRegexp.test(req.body.email)
+                    console.log(' emailRegexp.test(req.body.email)', EmailValidator.validate(req.body.email));
+                    if (EmailValidator.validate(req.body.email)) {
+                        mailConfig.mailSmtpConfig().sendMail(mailConfig.mailSendConfig(req.body)).then(
+                            (result) => {
+                                res.status(200).send({status: 'success', message: "we send it"},)
+                            },
+                            (error) => {
+                                console.log('send error', error);
+                                if (error.responseCode && error.responseCode === 535) {
+                                    res.status(500).send({status: null, message: "error Authrntication"})
+                                } else if (error.errno && error.errno === 'ETIMEDOUT') {
+                                    res.status(500).send({
+                                        status: null,
+                                        message: "error invalid port or ip address timeout"
+                                    })
+                                } else {
+                                    res.status(500).send({status: null, message: "error"})
+                                }
+                            });
+                    }else{
+                        res.status(400).send({status: null, message: 'wrong email'});
+                    }
+                } else {
+                    res.status(401).send({status: null, message: 'Bad credentials'},)
                 }
-             else {
-                res.send('kisat prat zapros',)
             }
-        }
 
-    } )
-}
+        })
+    }
 }
 
 const gamesRoutes = new MailRoutes();
