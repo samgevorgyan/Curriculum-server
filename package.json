@@ -8,7 +8,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node build/index.js",
-    "build": "tsc -w",
+    "build": "ashot",
     "dev": "nodemon build/index.js",
     "tsc": "tsc"
   },
