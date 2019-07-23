@@ -19,8 +19,8 @@ var MailRoutes = /** @class */ (function () {
         this.sendEmail();
     }
     MailRoutes.prototype.sendEmail = function () {
-        console.log('mtav games');
         this.router.post('/', function (req, res) {
+            console.log('mtav mail postov');
             if (req.body) {
                 if (req.body.name && req.body.email && req.body.msg) {
                     // emailRegexp.test(req.body.email)
@@ -40,7 +40,7 @@ var MailRoutes = /** @class */ (function () {
                                 });
                             }
                             else {
-                                res.status(500).send({ status: null, message: "error" });
+                                res.status(500).send({ status: null, message: error });
                             }
                         });
                     }

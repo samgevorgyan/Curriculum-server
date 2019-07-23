@@ -10,8 +10,8 @@ class SendMail {
 mailSendConfig(obj: any){
 
 return {
-    from: 'gesamvel@mail.ru',
-    to: 'gesamvel@mail.ru',
+    from: 'samvelgevorgyan@samcv.net',
+      to: 'gesamvel@mail.ru',
     subject: "NICE JOB OFFER ",
     html: `<div  >
 <h1>Hello Dear Samvel</h1>
@@ -32,12 +32,11 @@ ${obj.msg}
 
    return nodeMailer.createTransport({
 
-       host: "smtp.mail.ru",
-
-       port: 587,
+       host: "az1-ss21.a2hosting.com",
+       port: 465,
        auth: {
-           user: 'gesamvel@mail.ru',
-           pass: 'etWrnyUMAg77eKj'
+           user: 'samvelgevorgyan@samcv.net',
+           pass: 'Gorisigort2'
        },
 
 

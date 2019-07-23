@@ -8,15 +8,23 @@ var indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 var mailRoutes_1 = __importDefault(require("./routes/mailRoutes"));
 var morgan_1 = __importDefault(require("morgan"));
 var cors_1 = __importDefault(require("cors"));
-var os_1 = __importDefault(require("os"));
 var Server = /** @class */ (function () {
     function Server() {
         this.app = express_1.default();
         this.config();
         this.routes();
+        // this.app.use(express.static(__dirname+'/dist'));
+        // this.app.get('/*', (req, res) => {
+        //     console.log('mtav *** -ov rout@', );
+        //     res.sendFile(path.join(__dirname))
+        //
+        // });
     }
+    Server.prototype.loggerMiddleware = function (request, response, next) {
+        console.log(request.method + " " + request.path);
+        next();
+    };
     Server.prototype.config = function () {
-        console.log('os', os_1.default.type());
         this.app.set('port', process.env.PORT || 3000);
         this.app.use(morgan_1.default('dev'));
         this.app.use(cors_1.default());
@@ -24,8 +32,8 @@ var Server = /** @class */ (function () {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     };
     Server.prototype.routes = function () {
-        this.app.use('/', indexRoutes_1.default);
         this.app.use('/mail', mailRoutes_1.default);
+        this.app.use('/api/ff', indexRoutes_1.default);
     };
     Server.prototype.start = function () {
         var _this = this;

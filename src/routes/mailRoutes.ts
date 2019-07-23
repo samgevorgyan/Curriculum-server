@@ -11,9 +11,9 @@ class MailRoutes {
     }
 
     sendEmail(): void {
-        console.log('mtav games',);
-        this.router.post('/', (req, res) => {
 
+        this.router.post('/', (req, res) => {
+            console.log('mtav mail postov',);
             if (req.body) {
                 if (req.body.name && req.body.email && req.body.msg) {
 
@@ -34,7 +34,7 @@ class MailRoutes {
                                         message: "error invalid port or ip address timeout"
                                     })
                                 } else {
-                                    res.status(500).send({status: null, message: "error"})
+                                    res.status(500).send({status: null, message: error})
                                 }
                             });
                     }else{
